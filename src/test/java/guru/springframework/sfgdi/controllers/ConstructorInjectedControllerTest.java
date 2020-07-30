@@ -1,11 +1,8 @@
 package guru.springframework.sfgdi.controllers;
 
-import guru.springframework.sfgdi.services.GreetingServiceImpl;
-import org.junit.jupiter.api.BeforeAll;
+import guru.springframework.sfgdi.services.ConstructorGreetingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Preferred DI method.
@@ -17,7 +14,7 @@ class ConstructorInjectedControllerTest {
 
     @BeforeEach
     void setup() {
-        controller = new ConstructorInjectedController(new GreetingServiceImpl());
+        controller = new ConstructorInjectedController(new ConstructorGreetingService());
     }
 
     @Test
