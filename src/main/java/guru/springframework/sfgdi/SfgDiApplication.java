@@ -4,11 +4,36 @@ import guru.springframework.sfgdi.controllers.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+// THis is how tell Spring to scan for different packages in different locations for components/services.
+@ComponentScan(basePackages = {"guru.services", "guru.springframework"})
 public class SfgDiApplication {
 
 	public static void main(String[] args) {
+		// testApp(args);
+
+		ApplicationContext ctx = SpringApplication.run(SfgDiApplication.class, args);
+
+		MyController controller = (MyController) ctx.getBean("myController");
+		System.out.println(controller.sayHello());
+		System.out.println(ctx.getBean(PropertyInjectedController.class).sayHello());
+		System.out.println(ctx.getBean(SetterInjectedController.class).sayHello());
+		System.out.println(ctx.getBean(ConstructorInjectedController.class).sayHello());
+	}
+
+
+
+	/**
+	 * This runs the old demo to test some of these dependencies.
+	 * We're movingt his because JT's class is a little disorganised, and I don't want to lose this code.
+	 * But basically what this does is build the context dynamically with a bunch of glorious
+	 * .getBean and ApplicationContext stuff.
+	 * @param args
+	 */
+	public static void testApp(String[] args) {
 
 		ApplicationContext ctx = SpringApplication.run(SfgDiApplication.class, args);
 
@@ -33,7 +58,7 @@ public class SfgDiApplication {
 		// We can get rid of this line, since we annotated this bad boy as a Service.
 		// propertyInjectedController.greetingService = new ConstructorGreetingService();
 
-		System.out.println(propertyInjectedController.getGreeting());
+		System.out.println(propertyInjectedController.sayHello());
 
 		System.out.println("----------Setter injected controller:");
 		/**
