@@ -9,12 +9,12 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 // THis is how tell Spring to scan for different packages in different locations for components/services.
-@ComponentScan(basePackages = {"guru.services", "guru.springframework"})
+// @ComponentScan(basePackages = {"guru.springframework.sfgdi.services", "guru.springframework"})
 public class SfgDiApplication {
 
 	public static void main(String[] args) {
 		// testApp(args);
-
+		// testApp2(args);
 		ApplicationContext ctx = SpringApplication.run(SfgDiApplication.class, args);
 
 		MyController controller = (MyController) ctx.getBean("myController");
@@ -79,4 +79,18 @@ public class SfgDiApplication {
 
 	}
 
+
+	/**
+	 * This is just another back up of the kinds of testing that I've done - gonne be working on some configuration stuff.
+	 * @param args
+	 */
+	public static void testApp2(String [] args) {
+		ApplicationContext ctx = SpringApplication.run(SfgDiApplication.class, args);
+
+		MyController controller = (MyController) ctx.getBean("myController");
+		System.out.println(controller.sayHello());
+		System.out.println(ctx.getBean(PropertyInjectedController.class).sayHello());
+		System.out.println(ctx.getBean(SetterInjectedController.class).sayHello());
+		System.out.println(ctx.getBean(ConstructorInjectedController.class).sayHello());
+	}
 }
